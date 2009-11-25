@@ -1,5 +1,2 @@
 Install gem:
 gem install objectreload-permissions
-
-Next add to your ApplicationController (app/controllers/application_controller.rb) line:
-include RequirePermissions

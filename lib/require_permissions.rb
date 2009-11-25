@@ -60,3 +60,5 @@ module RequirePermissions
     end
   end
 end
+
+ActionController::Base.send(:include, RequirePermissions)
