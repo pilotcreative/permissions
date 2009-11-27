@@ -1,3 +1,5 @@
+require 'exceptions'
+
 module RequirePermissions
   def self.included(base)
     base.extend ClassMethods
@@ -60,5 +62,6 @@ module RequirePermissions
     end
   end
 end
+
 
 ActionController::Base.send(:include, RequirePermissions)

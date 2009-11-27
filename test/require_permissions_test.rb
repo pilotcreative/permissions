@@ -38,17 +38,21 @@ class RequirePermissionsTest < ActionController::TestCase
       PhotosController.require_visibility(@options)
     end
 
-    should "call edit" do
+    should "call filter before" do
+      PhotosController.expects(:before_filter).once
       PhotosController.require_permissions(@options)
-      assert_nothing_raised do
-        test_process(PhotosController, "edit")
-        @response.body.should == "ran action edit"
-      end
     end
 
     should "be available in ActionController" do
-      options = {}
-      assert_equal options, ActionController::Base.require_permissions
+      options = {:photo => [:show]}
+      options.should == ActionController::Base.require_permissions(options)
+    end
+
+    should "call edit" do
+      assert_nothing_raised do
+        test_process(CommentsController, "edit")
+        @response.body.should == "ran action edit"
+      end
     end
   end
 
