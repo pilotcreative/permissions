@@ -19,7 +19,7 @@ module RequirePermissions
       failure = options.delete(:failure)
       failure ||= lambda {
         if redirect
-          flash[:error] = "You were not authorised to see that page".t
+          flash[:error] = t("permissions.not_authorised_error") #You were not authorised to see that page
           redirect_to case redirect
           when Symbol then self.send(redirect)
           when Proc then instance_eval &redirect
