@@ -31,7 +31,7 @@ module RequirePermissions
       }
 
       options.each do |model, actions|
-        actions = {:only => actions} if actions.kind_of? Array
+        actions = {:only => Array(actions)} unless actions.kind_of? Hash
 
         _method = actions.delete(:method) || method
         _method = _method.to_s
