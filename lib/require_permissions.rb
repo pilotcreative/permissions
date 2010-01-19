@@ -21,10 +21,10 @@ module RequirePermissions
         if redirect
           flash[:error] = t("permissions.not_authorised_error") #You were not authorised to see that page
           redirect_to case redirect
-          when Symbol then self.send(redirect)
-          when Proc then instance_eval &redirect
-          else redirect
-          end
+                      when Symbol then self.send(redirect)
+                      when Proc then instance_eval &redirect
+                      else redirect
+                      end
         else
           raise Exceptions::UnathorizedAccess
         end
@@ -44,7 +44,15 @@ module RequirePermissions
         define_method(name) do
           target = instance_variable_get("@#{model}")
           return false unless target
-          condition = target.send(_method.to_sym, current_user)
+
+          condition = case target.method(_method).arity
+                      when 1
+                        target.send(_method.to_sym, current_user)
+                      when -2
+                        target.send(_method.to_sym, current_user, params[model])
+                      else
+                        raise ArgumentError, "#{target.class.name}##{_method} takes incorrect number of arguments (#{target.method(_method).arity}) - only 1 or -2 allowed."
+                      end
           condition = negative ? !condition : condition
           if condition
             instance_eval &_success
