@@ -15,7 +15,7 @@ class RequirePermissionsTest < ActionController::TestCase
   class CommentsController < ActionController::Base
     require_permissions :comment => [:edit, :update, :destroy], :method => :editable_by?
     require_permissions :photo => [:new, :create]
-    
+
     def new; render :inline => "ran action new" end
     def create; render :inline => "ran action create" end
     def edit; render :inline => "ran action edit" end
