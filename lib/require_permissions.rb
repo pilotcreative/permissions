@@ -46,7 +46,7 @@ module RequirePermissions
           return false unless target
 
           condition = case target.method(_method).arity
-                      when 1
+                      when 1, -1
                         target.send(_method.to_sym, current_user)
                       when -2
                         target.send(_method.to_sym, current_user, params[model])
