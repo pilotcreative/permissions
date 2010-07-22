@@ -40,7 +40,7 @@ module RequirePermissions
         _failure = actions.delete(:failure) || failure
 
         negative = _method.gsub!(/^\!/, '') ? true : false
-        name = :"require_#{model}_permissions_#{rand}"
+        name = :"require_#{model}_permissions_#{Time.now.to_i}"
         define_method(name) do
           target = instance_variable_get("@#{model}")
           return false unless target
