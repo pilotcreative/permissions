@@ -28,7 +28,7 @@ module RequirePermissions
         }
       else
         proc {
-          raise Exceptions::UnathorizedAccess
+          raise Exceptions::UnauthorizedAccess
         }
       end
 
